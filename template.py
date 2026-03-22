@@ -26,7 +26,7 @@ for filepath in list_of_files:
     if filedir!="":
         os.makedirs(filedir,exist_ok=True)
     if (not os.path.exists(filepath)) or os.path.getsize(filepath):
-        with open(filepath,"w")as file:
+        with open(filepath,"a")as file:
             pass
     else:
         print(f"File exist by the name {filepath}")
