@@ -15,8 +15,10 @@ list_of_files=[
     f"{program_name}/configuration/mongo_db_connection.py",
     f"{program_name}/data_access/__init__.py",
     f"{program_name}/data_access/telecom.py",
+    f"{program_name}/exception/__init__.py",
     "app.py",
-    "demo.py"
+    "demo.py",
+    "setup.py"
 ]
 for filepath in list_of_files:
     filepath=Path(filepath)
