@@ -18,7 +18,10 @@ list_of_files=[
     f"{program_name}/exception/__init__.py",
     "app.py",
     "demo.py",
-    "setup.py"
+    "setup.py",
+    f"test/__init__.py",
+    f"test/testing_excception.py",
+    f"test/testing_database_connection.py"
 ]
 for filepath in list_of_files:
     filepath=Path(filepath)
