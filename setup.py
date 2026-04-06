@@ -4,6 +4,6 @@ setup(
     version="1.0.0",
     author="MUKUL MEHTA",
     author_email="mehamukul689@gmail.com",
-    describe="This is my first Project ",
-    package=find_packages()
+    description="This is my first Project ",
+    packages=find_packages()
 )

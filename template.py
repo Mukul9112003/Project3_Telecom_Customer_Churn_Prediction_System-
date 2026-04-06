@@ -5,7 +5,7 @@ list_of_files=[
     f"{program_name}/components/__init__.py",
     f"{program_name}/components/data_ingestion.py",
     f"{program_name}/pipeline/__init__.py",
-    f"{program_name}pipeline/training_pipeline.py",
+    f"{program_name}/pipeline/training_pipeline.py",
     f"{program_name}/constants/__init__.py",
     f"{program_name}/logger/__init__.py",
     f"{program_name}/entity/__init__.py",
@@ -28,7 +28,7 @@ for filepath in list_of_files:
     filedir,filename=os.path.split(filepath)
     if filedir!="":
         os.makedirs(filedir,exist_ok=True)
-    if (not os.path.exists(filepath)) or os.path.getsize(filepath):
+    if (not os.path.exists(filepath)) or os.path.getsize(filepath)==0:
         with open(filepath,"a")as file:
             pass
     else:

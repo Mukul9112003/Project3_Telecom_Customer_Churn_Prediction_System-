@@ -16,7 +16,7 @@ class MongoDataFetcher:
             df=pd.DataFrame(list(collection.find()))
             if "_id" in df.columns.to_list():
                 df.drop(["_id"],axis=1,inplace=True)
-            df.replace({"na":np.nan})
+            df.replace({"na":np.nan},inplace=True)
             return df
         except Exception as e:
             raise MyException(e)
