@@ -4,7 +4,7 @@ column:
   SeniorCitizen: int 
   Partner: object 
   Dependents: object 
-  tenure: int64  
+  tenure: int
   PhoneService: object 
   MultipleLines: object 
   InternetService: object 

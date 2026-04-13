@@ -31,4 +31,4 @@ class DataValidationConfig:
     validation_report_file_path:str=field(init=False)
     def __post_init__(self):
         self.data_validation_dir=os.path.join(self.training_pipeline_config.artifact_path,DATA_VALIDATION_DIR_NAME)
-        self.validation_report_file_path=os.path.join(self.training_pipeline_config.artifact_path,REPORT_FILE_PATH)
+        self.validation_report_file_path=os.path.join(self.data_validation_dir,REPORT_FILE_PATH)
