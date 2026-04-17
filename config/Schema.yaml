@@ -20,32 +20,31 @@ column:
   MonthlyCharges: float
   TotalCharges: object 
   Churn: object
-count:
-  -PhoneService 
-  -MultipleLines 
-  -InternetService 
-  -OnlineSecurity 
-  -OnlineBackup 
-  -DeviceProtection 
-  -TechSupport 
-  -StreamingTV 
-  -StreamingMovies 
+services:
+  - PhoneService 
+  - MultipleLines 
+  - InternetService 
+  - OnlineSecurity 
+  - OnlineBackup 
+  - DeviceProtection 
+  - TechSupport 
+  - StreamingTV 
+  - StreamingMovies 
 category:
-  -gender
-  -SeniorCitizen
-  -Partner
-  -Dependents
-  -PhoneService
-  -MultipleLines
-  -InternetService
-  -OnlineSecurity
-  -OnlineBackup
-  -DeviceProtection
-  -TechSupport
-  -StreamingTV
-  -StreamingMovies
-  -Contract
-  -PaperlessBilling
-  -PaymentMethod
-  -tenure_group
-  -is_high_risk
+  - gender
+  - SeniorCitizen
+  - Partner
+  - Dependents
+  - PhoneService
+  - MultipleLines
+  - InternetService
+  - OnlineSecurity
+  - OnlineBackup
+  - DeviceProtection
+  - TechSupport
+  - StreamingTV
+  - StreamingMovies
+  - Contract
+  - PaperlessBilling
+  - PaymentMethod
+  - is_high_risk

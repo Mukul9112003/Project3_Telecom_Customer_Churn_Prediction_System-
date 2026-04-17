@@ -32,3 +32,15 @@ class DataValidationConfig:
     def __post_init__(self):
         self.data_validation_dir=os.path.join(self.training_pipeline_config.artifact_path,DATA_VALIDATION_DIR_NAME)
         self.validation_report_file_path=os.path.join(self.data_validation_dir,REPORT_FILE_PATH)
+@dataclass
+class DataTransformationConfig:
+    training_pipeline_config:TrainingPipelineConfig
+    data_transformation_dir:str=field(init=False)
+    transformed_train_file_path:str=field(init=False)
+    transformed_test_file_path:str=field(init=False)
+    preprocessing_object_file_path:str=field(init=False)
+    def __post_init__(self):
+        self.data_transformation_dir=os.path.join(self.training_pipeline_config.artifact_path,DATA_TRANSFORMATION_DIR_NAME)
+        self.transformed_train_file_path=os.path.join(self.data_transformation_dir,DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR,TRAIN_FILE_NAME.replace("csv","npy"))
+        self.transformed_test_file_path=os.path.join(self.data_transformation_dir,DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR,TEST_FILE_NAME.replace("csv","npy"))
+        self.preprocessing_object_file_path=os.path.join(self.data_transformation_dir,DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR,PREPROCESSING_OBJECT_FILE_NAME)

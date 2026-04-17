@@ -4,6 +4,8 @@ program_name="src"
 list_of_files=[
     f"{program_name}/components/__init__.py",
     f"{program_name}/components/data_ingestion.py",
+    f"{program_name}/components/data_validation.py",
+    f"{program_name}/components/data_transformation.py",
     f"{program_name}/pipeline/__init__.py",
     f"{program_name}/pipeline/training_pipeline.py",
     f"{program_name}/constants/__init__.py",
