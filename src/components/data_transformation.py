@@ -11,6 +11,7 @@ from src.utils.main_utils import read_yaml_file,save_object,read_csv_file,save_n
 import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.base import BaseEstimator,TransformerMixin
+from sklearn.impute import SimpleImputer
 from src.constants import TARGET_COLUMN
 class Mera_Transformer(BaseEstimator,TransformerMixin):
     def __init__(self,services):
@@ -20,11 +21,17 @@ class Mera_Transformer(BaseEstimator,TransformerMixin):
     def transform(self,X,y=None):
         X = X.copy()
         X["tenure"]=pd.to_numeric(X["tenure"],errors="coerce").fillna(0)
-        X["tenure_group"]=pd.cut(X["tenure"],bins=[0,12,24,48,100],labels=False).fillna(-1)
-        available_services = [col for col in self.services if col in X.columns]
-        X["number_of_services"]=X[available_services].eq("Yes").sum(axis=1)
-        X["is_high_risk"]=((X["Contract"]=="Month-to-month") & (X["tenure"]<12)).astype("bool")
-        X=X.drop(columns=["tenure","customerID"],errors="ignore")
+        X["tenure_group"]=pd.cut(X["tenure"],bins=[0,12,24,48,100],labels=["High Chances","Chances","low Chances","very low chances"],include_lowest=True)
+        X["InternetService_used"]=X["InternetService"].map({"No":"No","Fiber optic":"Yes","DSL":"Yes"})
+        X["MultipleLines"]=X["MultipleLines"].map({"No phone service":"No","Yes":"Yes","No":"No"})
+        X["number_of_services"]=X[self.services].eq("Yes").sum(axis=1)
+        X["Partner"] = X["Partner"].str.strip().str.capitalize()
+        X["Dependents"] = X["Dependents"].str.strip().str.capitalize()
+        X["is_high_risk"]=((X["Contract"]=="Month-to-month") & (X["tenure_group"]=="High Chances")).astype("bool")
+        X["Partner"] = X["Partner"].map({"Yes": 1, "No": 0})
+        X["Dependents"] = X["Dependents"].map({"Yes": 1, "No": 0})
+        X["family_present"]=(X["SeniorCitizen"]+X["Partner"]+X["Dependents"])
+        X=X.drop(columns=["customerID"],errors="ignore")
         return X
     
 class DataTransformation:
@@ -41,7 +48,7 @@ class DataTransformation:
             expected_col=self._Schema_config["services"]
             preprocessing=Pipeline(steps=[
                 ("mera",Mera_Transformer(expected_col)),
-                ("category_handling",ColumnTransformer(transformers=[("encoding",OneHotEncoder(handle_unknown="ignore",drop="first",sparse_output=False),self._Schema_config["category"])],remainder="passthrough"
+                ("category_handling",ColumnTransformer(transformers=[("encoding",OneHotEncoder(handle_unknown="ignore",drop="first",sparse_output=False),self._Schema_config["category"]),("total",SimpleImputer(strategy="median"),["TotalCharges"])],remainder="passthrough"
                 ))
            ])
             return preprocessing
@@ -56,11 +63,6 @@ class DataTransformation:
                 X_train,y_train=train.drop(columns=[TARGET_COLUMN],axis=1),train[TARGET_COLUMN]
                 X_test,y_test=test.drop(columns=[TARGET_COLUMN],axis=1),test[TARGET_COLUMN]
                 expected_col = self._Schema_config["services"]
-                '''debug_df = Mera_Transformer(expected_col).fit_transform(X_train)
-                print("\n Columns after Mera_Transformer:")
-                print(debug_df.columns.tolist())
-                print("\nColumns expected by ColumnTransformer:")
-                print(self._Schema_config["category"])'''
                 preprocessing=self.preprocessing_start()
                 preprocessing.fit(X_train)
                 logging.info("Preprocessing object made successfully")

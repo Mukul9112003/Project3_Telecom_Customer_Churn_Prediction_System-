@@ -1,10 +1,8 @@
-config:
-  n_estimators=300,
-  max_depth=6,
-  learning_rate=0.05,
-  subsample=0.8,
-  colsample_bytree=0.8,
-  scale_pos_weight=scale_pos_weight,
-  random_state=42,
-  eval_metric="logloss"
-  threshold:0.35
+configs:
+  n_estimators: 100
+  max_depth: 5
+  learning_rate: 0.1
+  random_state: 42
+  eval_metric: "logloss"
+  use_label_encoder: False
+threshold: 0.48999999999999977

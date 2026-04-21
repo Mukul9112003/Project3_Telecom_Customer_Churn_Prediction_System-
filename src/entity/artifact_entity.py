@@ -13,3 +13,15 @@ class DataTransformationArtifact:
     trained_transformed_filepath:str
     tested_transformed_filepath:str
     preprocessing_file_object_filepath:str
+@dataclass
+class ClassificationMetricArtifact:
+    precision:float
+    accuracy:float
+    recall:float
+    f1_score:float
+    classification_report:str
+
+@dataclass
+class ModelTrainerArtifact:
+    trained_model:str
+    metric_artifact:ClassificationMetricArtifact

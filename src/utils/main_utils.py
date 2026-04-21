@@ -39,6 +39,6 @@ def save_numpy_array(filepath,content):
         raise MyException(e) from e
 def load_numpy_array(filepath):
     try:
-        return np.load(filepath)
+        return np.load(filepath,allow_pickle=True)
     except Exception as e:
         raise MyException(e) from e

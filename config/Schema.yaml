@@ -18,12 +18,12 @@ column:
   PaperlessBilling: object 
   PaymentMethod: object 
   MonthlyCharges: float
-  TotalCharges: object 
+  TotalCharges: float
   Churn: object
 services:
   - PhoneService 
   - MultipleLines 
-  - InternetService 
+  - InternetService_used
   - OnlineSecurity 
   - OnlineBackup 
   - DeviceProtection 
@@ -32,11 +32,10 @@ services:
   - StreamingMovies 
 category:
   - gender
-  - SeniorCitizen
-  - Partner
-  - Dependents
+  - tenure_group
   - PhoneService
   - MultipleLines
+  - InternetService_used
   - InternetService
   - OnlineSecurity
   - OnlineBackup

@@ -37,6 +37,7 @@ class DataIngestion:
     def Iniciate_Data_Ingestion(self):
         df=self.export_data()
         logging.info("Data Ingestion Exporting data successfully")
+        df["TotalCharges"] = pd.to_numeric(df["TotalCharges"], errors='coerce')
         self.split_train_test(df)
         logging.info("Data Ingestion Train test split successfully")
         data_ingestion_artifact=DataIngestionArtifact(trained_file_path=self.data_ingestion_config.train_file_path,tested_file_path=self.data_ingestion_config.test_file_path)
