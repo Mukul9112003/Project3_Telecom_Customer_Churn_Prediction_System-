@@ -75,12 +75,16 @@ class DataValidation:
             logging.info("Trained data loaded ")
             test=read_csv_file(filepath=self.data_ingestion_artifact.tested_file_path)
             logging.info("Tested data loaded")
+            validate=read_csv_file(filepath=self.data_ingestion_artifact.validate_file_path)
+            logging.info("validate data loaded")
+            val_status,val_message=self.validate_column(train)
+            logging.info("validate data validation done ")
             train_status,train_message=self.validate_column(train)
             logging.info("Trainig data validation done ")
             test_status,test_message=self.validate_column(test)
             logging.info("Testing data validation done ")
-            status_all=train_status and test_status
-            message=train_message+test_message
+            status_all=train_status and test_status and val_status
+            message=train_message+test_message+val_message
             dir_name=os.path.dirname(self.data_validation_config.validation_report_file_path)
             os.makedirs(dir_name,exist_ok=True)
             report={

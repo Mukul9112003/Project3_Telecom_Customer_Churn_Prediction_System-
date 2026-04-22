@@ -10,6 +10,7 @@ CURRENT_YEAR=date.today().year
 FILE_NAME="data.csv"
 TRAIN_FILE_NAME="train.csv"
 TEST_FILE_NAME="test.csv"
+VALIDATE_FILE_NAME="val.csv"
 REPORT_FILE_PATH="report.yaml"
 SCHEMA_FILE_NAME=from_root("config/Schema.yaml")
 DATA_INGESTION_DIR_NAME:str="data_ingestion"

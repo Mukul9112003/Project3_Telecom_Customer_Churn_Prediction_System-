@@ -9,7 +9,7 @@ from src.utils.main_utils import read_yaml_file,load_numpy_array,save_object,loa
 from xgboost import XGBClassifier
 import numpy as np
 from sklearn.base import BaseEstimator,ClassifierMixin
-from sklearn.metrics import precision_score,recall_score,accuracy_score,f1_score,classification_report
+from sklearn.metrics import precision_score,recall_score,accuracy_score,f1_score,classification_report,precision_recall_curve
 class MeraModel(BaseEstimator,ClassifierMixin):
     def __init__(self,sc):
         try:
@@ -37,24 +37,20 @@ class ModelTrainer:
             self._ModelSchema=read_yaml_file(filepath=MODEL_SCHEMA_FILE_NAME)
         except Exception as e:
             raise MyException(e) from e
-    def training_model(self,train,test):
+    def training_model(self,train,test,val):
         try:
             X_train,Y_train=train[:,:-1],train[:,-1]
             X_test,Y_test=test[:,:-1],test[:,-1]
+            X_val,Y_val=val[:,:-1],val[:,-1]
             scale_pos_weight = len(Y_train[Y_train == 0]) / len(Y_train[Y_train == 1])
             model=MeraModel(sc=scale_pos_weight)
             print((X_train == ' ').sum())
             model.fit(X_train,Y_train)
-            probs = model.predict_proba(X_test)[:, 1]
-            best_thresh = 0.5
-            best_f1 = 0
-            for t in np.arange(0.1, 0.9, 0.01):
-                preds = (probs > t).astype(int)
-                f1 = f1_score(Y_test, preds)
-                if f1 > best_f1:
-                    best_f1 = f1
-                    best_thresh = t
-            Y_pred = (probs > best_thresh).astype(int)
+            probs = model.predict_proba(X_val)[:, 1]
+            precision, recall, thresholds = precision_recall_curve(Y_val, probs)
+            f1 = 2 * (precision * recall) / (precision + recall + 1e-10)
+            best_idx = np.argmax(f1)
+            best_thresh = thresholds[best_idx]
             model.threshold = best_thresh
             Y_pred=model.predict(X_test)
             precision_val=float(precision_score(Y_test,Y_pred))
@@ -79,7 +75,9 @@ class ModelTrainer:
             logging.info("train data loaded successfully")
             test=load_numpy_array(self.data_transformation_artifact.tested_transformed_filepath)
             logging.info("test data loaded successfully")
-            model,metric,report=self.training_model(train,test)
+            val=load_numpy_array(self.data_transformation_artifact.validate_transformed_filepath)
+            logging.info("validation data loaded successfully")
+            model,metric,report=self.training_model(train,test,val)
             logging.info("model trained successfully")
             preprocessing=load_object(filepath=self.data_transformation_artifact.preprocessing_file_object_filepath)
             real_model=MyModel(preprocessing_object=preprocessing,model=model)

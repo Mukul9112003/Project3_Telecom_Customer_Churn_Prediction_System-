@@ -27,10 +27,12 @@ class DataIngestion:
         try:
             logging.info("Starting train-test split")
             train_df,test_df=train_test_split(df,test_size=self.data_ingestion_config.train_test_split_ratio,random_state=42)
+            train_df,val_df=train_test_split(train_df,test_size=0.20,random_state=42)
             dir_name=os.path.dirname(self.data_ingestion_config.train_file_path)
             os.makedirs(dir_name,exist_ok=True)
             train_df.to_csv(self.data_ingestion_config.train_file_path,index=False,header=True)
             test_df.to_csv(self.data_ingestion_config.test_file_path,index=False,header=True)
+            val_df.to_csv(self.data_ingestion_config.validate_file_path,index=False,header=True)
             logging.info(f"Train shape: {train_df.shape}, Test shape: {test_df.shape}")
         except Exception as e:
             raise MyException(e) from e
@@ -40,6 +42,6 @@ class DataIngestion:
         df["TotalCharges"] = pd.to_numeric(df["TotalCharges"], errors='coerce')
         self.split_train_test(df)
         logging.info("Data Ingestion Train test split successfully")
-        data_ingestion_artifact=DataIngestionArtifact(trained_file_path=self.data_ingestion_config.train_file_path,tested_file_path=self.data_ingestion_config.test_file_path)
+        data_ingestion_artifact=DataIngestionArtifact(trained_file_path=self.data_ingestion_config.train_file_path,tested_file_path=self.data_ingestion_config.test_file_path,validate_file_path=self.data_ingestion_config.validate_file_path)
         logging.info("Data Ingestion Completed Successfully")
         return data_ingestion_artifact
