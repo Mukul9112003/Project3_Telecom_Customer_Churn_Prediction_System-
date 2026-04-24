@@ -6,8 +6,6 @@ app = FastAPI()
 
 pipeline = PredictionPipeline()
 
-
-# ⚠️ You MUST include all features used in training
 class ChurnRequest(BaseModel):
     gender: str
     SeniorCitizen: int
