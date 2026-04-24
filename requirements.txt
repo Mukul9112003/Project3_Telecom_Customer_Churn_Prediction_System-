@@ -7,3 +7,4 @@ boto3
 pydantic
 joblib
 from-root
+mypy_boto3_s3
