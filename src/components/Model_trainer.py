@@ -44,7 +44,6 @@ class ModelTrainer:
             X_val,Y_val=val[:,:-1],val[:,-1]
             scale_pos_weight = len(Y_train[Y_train == 0]) / len(Y_train[Y_train == 1])
             model=MeraModel(sc=scale_pos_weight)
-            print((X_train == ' ').sum())
             model.fit(X_train,Y_train)
             probs = model.predict_proba(X_val)[:, 1]
             precision, recall, thresholds = precision_recall_curve(Y_val, probs)

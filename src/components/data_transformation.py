@@ -59,7 +59,7 @@ class DataTransformation:
             if self.data_validation_artifact.status:
                 train=read_csv_file(self.data_ingestion_artifact.trained_file_path)
                 test=read_csv_file(self.data_ingestion_artifact.tested_file_path)
-                validate=test=read_csv_file(self.data_ingestion_artifact.validate_file_path)
+                validate=read_csv_file(self.data_ingestion_artifact.validate_file_path)
                 logging.info("train and test data load successfully from data ingestion artifact ")
                 X_train,y_train=train.drop(columns=[TARGET_COLUMN],axis=1),train[TARGET_COLUMN]
                 X_test,y_test=test.drop(columns=[TARGET_COLUMN],axis=1),test[TARGET_COLUMN]

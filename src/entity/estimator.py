@@ -7,4 +7,7 @@ class MyModel:
         transform_df=self.preprocessing_object.transform(dataframe)
         result=self.model.predict(transform_df)
         return result
+    def predict_proba(self, dataframe):
+        transformed = self.preprocessing_object.transform(dataframe)
+        return self.model.predict_proba(transformed)
     
