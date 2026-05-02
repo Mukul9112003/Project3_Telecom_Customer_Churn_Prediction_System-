@@ -1,0 +1,23 @@
+artifact_path: file:///D:/best_mukul_self_made/Project3_Telecom_Customer_Churn_Prediction_System/MLFLOW_TRACKING_URI/736507650479348050/models/m-ab974c6e3ccc4d46b035124ddf0d4cf3/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.9
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+mlflow_version: 3.10.1
+model_id: m-ab974c6e3ccc4d46b035124ddf0d4cf3
+model_size_bytes: 227656
+model_uuid: m-ab974c6e3ccc4d46b035124ddf0d4cf3
+prompts: null
+run_id: c0f101dd972940899f9fc2f7a6c26fee
+utc_time_created: '2026-05-02 05:00:14.796610'

@@ -9,7 +9,6 @@ class Proj1Estimator:
         self.bucket_name = bucket_name
         self.s3 = SimpleStorageService()
         self.model_path :str=model_path
-        self.loaded_model:MyModel
         self.loaded_model: Optional[MyModel] = None
     def is_model_present(self,model_path):
         try:

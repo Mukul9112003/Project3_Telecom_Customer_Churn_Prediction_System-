@@ -6,8 +6,7 @@ from src.components.data_transformation import DataTransformation
 from src.components.Model_trainer import ModelTrainer
 from src.components.Model_Evaluation import ModelEvaluation
 from src.components.Model_Pusher import ModelPusher
-from src.entity.config_entity import ModelEvaluationConfig
-from src.entity.config_entity import DataIngestionConfig,DataValidationConfig,TrainingPipelineConfig,DataTransformationConfig,ModelTrainerConfig,ModelPusherConfig 
+from src.entity.config_entity import DataIngestionConfig,DataValidationConfig,TrainingPipelineConfig,DataTransformationConfig,ModelTrainerConfig,ModelPusherConfig,ModelEvaluationConfig
 class TrainingPipeline:
     def __init__(self):
         self.pipeline_config = TrainingPipelineConfig()

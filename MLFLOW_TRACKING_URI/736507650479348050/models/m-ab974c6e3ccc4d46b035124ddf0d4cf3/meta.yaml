@@ -1,0 +1,10 @@
+artifact_location: file:///D:/best_mukul_self_made/Project3_Telecom_Customer_Churn_Prediction_System/MLFLOW_TRACKING_URI/736507650479348050/models/m-ab974c6e3ccc4d46b035124ddf0d4cf3/artifacts
+creation_timestamp: 1777698014666
+experiment_id: '736507650479348050'
+last_updated_timestamp: 1777698029111
+model_id: m-ab974c6e3ccc4d46b035124ddf0d4cf3
+model_type: null
+name: model
+source_run_id: c0f101dd972940899f9fc2f7a6c26fee
+status: 2
+status_message: null

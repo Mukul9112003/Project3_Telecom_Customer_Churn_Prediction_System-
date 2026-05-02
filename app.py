@@ -30,7 +30,7 @@ class ChurnRequest(BaseModel):
 
 @app.get("/")
 def home():
-    return {"message": "Churn Prediction API Running 🚀"}
+    return {"message": "Churn Prediction API Running "}
 
 
 @app.post("/predict")
